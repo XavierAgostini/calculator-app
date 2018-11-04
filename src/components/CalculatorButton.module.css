@@ -1,0 +1,19 @@
+.calculator-btn {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  height: 20%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.05)
+}
+.calculator-btn:hover {
+  background-color: red;
+}
+.calculator-btn:active {
+  background-color: green;
+}
+.bigger-btn {
+  height: 40%;
+}
