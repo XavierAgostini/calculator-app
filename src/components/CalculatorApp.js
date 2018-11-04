@@ -1,7 +1,7 @@
 import React from 'react'
 import './CalculatorApp.module.css'
 import CalculatorButton from './CalculatorButton'
-
+import CalculatorDisplay from './CalculatorDisplay'
 export default class CalculatorApp extends React.Component {
   constructor() {
     super()
@@ -13,8 +13,8 @@ export default class CalculatorApp extends React.Component {
   
   render() {
     return (
-      <div>
-        <h1>Calculator App</h1>
+      <div className="calc-app">
+        <CalculatorDisplay displayNum={4}/>
         <div className="calc-buttons">
           {
             this.state.buttons.map((button, i) => (

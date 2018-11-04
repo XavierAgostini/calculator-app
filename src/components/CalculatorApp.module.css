@@ -1,7 +1,10 @@
+.calc-app {
+  width: 360px;
+  height: 360px;
+}
 .calc-buttons {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  width: 360px;
-  height: 360px;
+  height: 80%;
 }
