@@ -13,10 +13,15 @@ export default class CalculatorButton extends React.Component {
     }
     return buttonClass
   }
+  btnClicked = () => {
+    this.props.handleBtnClick(this.props.buttonValue)
+  }
   render () {
     
     return (
-      <div className={this.buttonClass()}>{this.props.buttonValue}</div>
+      <div className={this.buttonClass()} onClick={this.btnClicked}>
+        {this.props.buttonValue}
+      </div>
     )
   }
 } 
