@@ -1,6 +1,7 @@
 .calc-app {
+  margin: 0 auto;
   width: 360px;
-  height: 360px;
+  height: 500px;
 }
 .calc-buttons {
   display: flex;

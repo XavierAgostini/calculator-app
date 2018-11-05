@@ -6,13 +6,16 @@
   width: 25%;
   height: 20%;
   box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.05)
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: monospace;
+  font-size: 20px;
+  cursor: pointer;
 }
 .calculator-btn:hover {
-  background-color: red;
+  background-color:#dfdbdb;
 }
 .calculator-btn:active {
-  background-color: green;
+  background-color: #ccc;
 }
 .bigger-btn {
   width: 50%;
