@@ -6,7 +6,7 @@ export default class CalculatorApp extends React.Component {
   constructor() {
     super()
     this.state = {
-      buttons: ['C','+/-','%','/',7,8,9,'x',4,5,6,'-',1,2,3,'+',0,'.','='],
+      buttons: ['A/C','+/-','%','/',7,8,9,'x',4,5,6,'-',1,2,3,'+',0,'.','='],
       displayValue: '',
       currOperation: null,
       newOperation: false
@@ -14,6 +14,14 @@ export default class CalculatorApp extends React.Component {
   }
   handleBtnClick = (buttonValue) => {
     let newDisplayValue = this.state.displayValue
+    if(buttonValue !== 'A/C') {
+      this.setState((state) => {
+        return { buttons: ['C'].concat(state.buttons.slice(1,)) }
+      })
+      this.setState((state) => {
+        return {displayValue: newDisplayValue}
+      })
+    }
     if(typeof buttonValue === 'number' || buttonValue === '.') {
       if(this.state.newOperation) {
         newDisplayValue = ''
@@ -22,14 +30,20 @@ export default class CalculatorApp extends React.Component {
       newDisplayValue += String(buttonValue)
     } else {
       switch (buttonValue) {
-        case 'C':
+        case 'A/C':
           newDisplayValue = '' 
           this.setState({currOperation: null})
+          break
+        case 'C':
+          newDisplayValue = ''
+          this.setState((state) => {
+            return { buttons: ['A/C'].concat(state.buttons.slice(1,)) }
+          })
           break
         case '+/-':
           if (newDisplayValue !== 'Not a Number') {
             if (newDisplayValue === '.') newDisplayValue = ''
-            else newDisplayValue = ' -' + newDisplayValue
+            else if (newDisplayValue !== '0') newDisplayValue = ' -' + newDisplayValue
           }
           break
         case '=':
@@ -51,7 +65,7 @@ export default class CalculatorApp extends React.Component {
           } else {
             if(!!this.state.currOperation) {
               console.log('test',this.state.currOperation)
-              if (newDisplayValue === '.') newDisplayValue = 0
+              if (newDisplayValue === '.') newDisplayValue = '0'
               newDisplayValue = this.state.currOperation.slice(0,-1) + '*' + newDisplayValue + '/100'
               
               newDisplayValue = String(eval(newDisplayValue))
