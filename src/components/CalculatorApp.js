@@ -27,23 +27,56 @@ export default class CalculatorApp extends React.Component {
           this.setState({currOperation: null})
           break
         case '+/-':
-          if (newDisplayValue[0] === '-') {
-           newDisplayValue = newDisplayValue.substr(1)
-          } else {
-            newDisplayValue = '-' + newDisplayValue
-          } 
+          if (newDisplayValue !== 'Not a Number') {
+            if (newDisplayValue === '.') newDisplayValue = ''
+            else newDisplayValue = ' -' + newDisplayValue
+          }
           break
         case '=':
-          newDisplayValue = eval(this.state.currOperation+newDisplayValue)
+          if (newDisplayValue === '.') newDisplayValue = '.0'
+          if (newDisplayValue[0] === '-') newDisplayValue = ` ${newDisplayValue}`
+          if (newDisplayValue.length === 0) newDisplayValue = 0
+
+          if (newDisplayValue === 'Not a Number' || this.state.currOperation.includes('Not a Number')) {
+            newDisplayValue = 'Not a Number'
+          } else {
+            newDisplayValue = eval(this.state.currOperation+newDisplayValue)
+            if (newDisplayValue === Infinity) newDisplayValue = 'Not a Number' 
+          }
           this.setState({currOperation: null, newOperation: false})
+          break
         case '%':
+          if (newDisplayValue === 'Not a Number') {
+            newDisplayValue = 'Not a Number'
+          } else {
+            if(!!this.state.currOperation) {
+              console.log('test',this.state.currOperation)
+              if (newDisplayValue === '.') newDisplayValue = 0
+              newDisplayValue = this.state.currOperation.slice(0,-1) + '*' + newDisplayValue + '/100'
+              
+              newDisplayValue = String(eval(newDisplayValue))
+            } else {
+              newDisplayValue /= 100
+              // newDisplayValue = eval(this.state.currOperation+newDisplayValue)
+            }
+          }
           break
         // for cases: '/', 'x', '+', '-'
         default:
           if(!!this.state.currOperation && !this.newOperation) {
-            newDisplayValue = eval(this.state.currOperation+newDisplayValue)
+            if (newDisplayValue === 'Not a Number' || this.state.currOperation.includes('Not a Number')) {
+              newDisplayValue = 'Not a Number'
+            } else {
+              if (newDisplayValue.length === 0) newDisplayValue = 0
+              if (newDisplayValue[0] === '-') newDisplayValue = ` ${newDisplayValue}`
+              if(newDisplayValue === '.') newDisplayValue = 0
+              newDisplayValue =  eval(this.state.currOperation+newDisplayValue)
+              if (newDisplayValue === Infinity) newDisplayValue = 'Not a Number' 
+            }
           }
           if (buttonValue === 'x') buttonValue = '*'
+          if(newDisplayValue === '.') buttonValue = '0' + buttonValue
+
           this.setState({
             currOperation: newDisplayValue + buttonValue,
             newOperation: true
