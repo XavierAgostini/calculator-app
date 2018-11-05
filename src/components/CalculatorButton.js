@@ -11,6 +11,15 @@ export default class CalculatorButton extends React.Component {
     if (buttonValue === 0) {
       buttonClass += ' bigger-btn'
     }
+    if (this.props.activeBtn) {
+      buttonClass += ' active-btn'
+    }
+    if (buttonValue === 'A/C' || buttonValue === 'C' || buttonValue === '+/-' || buttonValue === '%') {
+      buttonClass += ' operation-btn'
+    }
+    if (buttonValue === '/' || buttonValue === 'x' || buttonValue === '+' || buttonValue === '-' || buttonValue === '=') {
+      buttonClass += ' operator-btn'
+    }
     return buttonClass
   }
   btnClicked = () => {

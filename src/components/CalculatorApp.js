@@ -2,6 +2,7 @@ import React from 'react'
 import './CalculatorApp.module.css'
 import CalculatorButton from './CalculatorButton'
 import CalculatorDisplay from './CalculatorDisplay'
+
 export default class CalculatorApp extends React.Component {
   constructor() {
     super()
@@ -9,7 +10,8 @@ export default class CalculatorApp extends React.Component {
       buttons: ['A/C','+/-','%','/',7,8,9,'x',4,5,6,'-',1,2,3,'+',0,'.','='],
       displayValue: '',
       currOperation: null,
-      newOperation: false
+      newOperation: false,
+      activeBtn: null
     }
   }
   handleBtnClick = (buttonValue) => {
@@ -37,7 +39,10 @@ export default class CalculatorApp extends React.Component {
         case 'C':
           newDisplayValue = ''
           this.setState((state) => {
-            return { buttons: ['A/C'].concat(state.buttons.slice(1,)) }
+            return {
+              buttons: ['A/C'].concat(state.buttons.slice(1,)),
+              activeBtn: null
+            }
           })
           break
         case '+/-':
@@ -57,7 +62,7 @@ export default class CalculatorApp extends React.Component {
             newDisplayValue = eval(this.state.currOperation+newDisplayValue)
             if (newDisplayValue === Infinity) newDisplayValue = 'Not a Number' 
           }
-          this.setState({currOperation: null, newOperation: false})
+          this.setState({currOperation: null, newOperation: false, activeBtn: null})
           break
         case '%':
           if (newDisplayValue === 'Not a Number') {
@@ -77,6 +82,9 @@ export default class CalculatorApp extends React.Component {
           break
         // for cases: '/', 'x', '+', '-'
         default:
+          this.setState({
+            activeBtn: buttonValue
+          })
           if(!!this.state.currOperation && !this.newOperation) {
             if (newDisplayValue === 'Not a Number' || this.state.currOperation.includes('Not a Number')) {
               newDisplayValue = 'Not a Number'
@@ -91,17 +99,26 @@ export default class CalculatorApp extends React.Component {
           if (buttonValue === 'x') buttonValue = '*'
           if(newDisplayValue === '.') buttonValue = '0' + buttonValue
 
-          this.setState({
-            currOperation: newDisplayValue + buttonValue,
-            newOperation: true
-          })   
+          if (!!newDisplayValue) {
+            console.log('a')
+            this.setState({
+              currOperation: newDisplayValue + buttonValue,
+              newOperation: true
+            })
+          } else {
+            console.log('b')
+            this.setState({
+              currOperation: '0' + buttonValue,
+              newOperation: true
+            })
+          }
       }
     }
     this.setState((state) => {
       return {displayValue: newDisplayValue}
     })
-      
   }
+
   render() {
     return (
       <div className="calc-app">
@@ -109,7 +126,7 @@ export default class CalculatorApp extends React.Component {
         <div className="calc-buttons">
           {
             this.state.buttons.map((button, i) => (
-              <CalculatorButton key={i} buttonValue={button} handleBtnClick={this.handleBtnClick}/>
+              <CalculatorButton key={i} activeBtn={this.state.activeBtn===button}buttonValue={button} handleBtnClick={this.handleBtnClick}/>
             ))
           }
         </div>

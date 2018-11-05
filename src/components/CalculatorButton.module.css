@@ -20,3 +20,25 @@
 .bigger-btn {
   width: 50%;
 }
+.active-btn {
+  color: #fff;
+}
+.operator-btn {
+  background-color: #ffa500;
+}
+.operator-btn:hover {
+  background-color: #e49504;
+}
+.operator-btn:active {
+  background-color:#c38107ed;
+}
+.operation-btn {
+  background-color: #dcdada;
+}
+.operation-btn:hover {
+  background-color: #bfbfbf;
+}
+
+.operation-btn:active {
+  background-color: #ccc;
+}
