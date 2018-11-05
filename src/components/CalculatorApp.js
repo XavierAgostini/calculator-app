@@ -14,8 +14,10 @@ export default class CalculatorApp extends React.Component {
       activeBtn: null
     }
   }
+
   handleBtnClick = (buttonValue) => {
     let newDisplayValue = this.state.displayValue
+    console.log(buttonValue, typeof buttonValue)
     if(buttonValue !== 'A/C') {
       this.setState((state) => {
         return { buttons: ['C'].concat(state.buttons.slice(1,)) }
@@ -114,19 +116,34 @@ export default class CalculatorApp extends React.Component {
           }
       }
     }
+    
     this.setState((state) => {
       return {displayValue: newDisplayValue}
     })
   }
-
+  handleKeyPress = (event) => {
+    console.log(event.key)
+    let key = event.key
+    if (!!Number(key)) key = Number(key)
+    if(key === 'Enter') key = '='
+    if(this.state.buttons.indexOf(key) !== -1) {
+      this.handleBtnClick(key)
+    }
+  }
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleKeyPress.bind(this))
+  }
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress.bind(this))
+  }
   render() {
     return (
-      <div className="calc-app">
+      <div className="calc-app" onKeyPress={this.handleKeyPress}>
         <CalculatorDisplay displayNum={this.state.displayValue}/>
         <div className="calc-buttons">
           {
             this.state.buttons.map((button, i) => (
-              <CalculatorButton key={i} activeBtn={this.state.activeBtn===button}buttonValue={button} handleBtnClick={this.handleBtnClick}/>
+              <CalculatorButton key={i} activeBtn={this.state.activeBtn===button} buttonValue={button} handleBtnClick={this.handleBtnClick}/>
             ))
           }
         </div>
