@@ -8,7 +8,7 @@ export default class CalculatorButton extends React.Component {
   buttonClass = () => {
     let buttonValue = this.props.buttonValue
     let buttonClass = 'calculator-btn'
-    if (buttonValue === '+' || buttonValue === '=') {
+    if (buttonValue === 0) {
       buttonClass += ' bigger-btn'
     }
     return buttonClass
