@@ -30,7 +30,6 @@ export default class CalculatorApp extends React.Component {
           if (newDisplayValue[0] === '-') {
            newDisplayValue = newDisplayValue.substr(1)
           } else {
-            console.log()
             newDisplayValue = '-' + newDisplayValue
           } 
           break
@@ -44,6 +43,7 @@ export default class CalculatorApp extends React.Component {
           if(!!this.state.currOperation && !this.newOperation) {
             newDisplayValue = eval(this.state.currOperation+newDisplayValue)
           }
+          if (buttonValue === 'x') buttonValue = '*'
           this.setState({
             currOperation: newDisplayValue + buttonValue,
             newOperation: true
