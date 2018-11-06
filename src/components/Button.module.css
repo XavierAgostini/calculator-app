@@ -1,0 +1,42 @@
+.calculator-btn {
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  height: 20%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: monospace;
+  font-size: 20px;
+  cursor: pointer;
+}
+.calculator-btn:hover {
+  background-color:#dfdbdb;
+}
+
+.bigger-btn {
+  width: 50%;
+}
+.active-btn {
+  color: #fff;
+}
+.operator-btn {
+  background-color: #ffa500;
+}
+.operator-btn:hover {
+  background-color: #e49504;
+}
+
+.operation-btn {
+  background-color: #dcdada;
+}
+.operation-btn:hover {
+  background-color: #bfbfbf;
+}
+.simulateBtnClick {
+  background-color: #ccc;
+}
+.calculator-btn:active {
+  background-color: #ccc;
+}
